@@ -75,6 +75,7 @@ allowed_origins = list(
         [
             "http://localhost:5173",
             "http://127.0.0.1:5173",
+            "https://risklayer-1.onrender.com",
             *frontend_origins,
         ]
     )
