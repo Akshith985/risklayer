@@ -1,0 +1,21 @@
+{
+    "chain_id": 31337,
+    "oracle_address": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+    "intent": {
+        "intent_id": 1,
+        "taker": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+        "amount": 200000000,
+        "valid_until": 1793957679,
+        "nonce": 0
+    },
+    "features": {
+        "amount": 200000000,
+        "provider_capacity": 1000000000,
+        "provider_reversal_rate": 0.02,
+        "taker_dispute_rate": 0.01,
+        "account_age_days": 180,
+        "transactions_last_hour": 3,
+        "payment_method_risk": 0.1
+    }
+}

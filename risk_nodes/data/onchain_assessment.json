@@ -1,0 +1,53 @@
+{
+    "assessment": {
+        "intentId": 1,
+        "taker": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "provider": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+        "amount": 200000000,
+        "approved": true,
+        "riskScoreBps": 235,
+        "maxAmount": 500000000,
+        "spreadBps": 61,
+        "collateralBps": 735,
+        "validUntil": 1793957679,
+        "nonce": 0
+    },
+    "message_hash": "7109ec625157eced9fe35a5961eb32213d7b5c7de52d6f84b737a0198d773637",
+    "signatures": [
+        "433e75cfafca2be253ed7b470c57bbd233e044637a128ba45ee4465a462f14e125d66e2d0c47a5440e47c699d6cb2d8c0de75dce49bda6820b5c5002a7d4f7d51c",
+        "9f1a85251967b30e6691d5de84d9565c77c3ec04f4cc29a1df2a72499fe39ab440c7fd070ab88ad31b20d6058c76ce34f8901a2c22fbe30c6cb94d1a305173b51b",
+        "7893a1457a37da672feb141b09cd8c36529939346bcf3c9fb05b7e14fdcb787413c7f5bd8d3d7c7831f3c18f5695aede5562c32c6b674381a3f64695deec0c6a1b",
+        "eee0a018556877bb7562e3babd2be588f2683d9fecb2567b37d4142393b5727747be7e1cc61f32d8558611a8fe50568c0a0c99dd7e4c17cebda821261e2a0ca51c"
+    ],
+    "signers": [
+        "0x4dd936022f07289A9CE238586E03cD9c5Fa9b130",
+        "0x536DEda6A3682C72DCD603A54C72A8C2751eD0fb",
+        "0x018dcD38b3cfe143c4002e89A5998C31e0EdB496",
+        "0x2272dfdFAdca3c7c42aDc5ABdEBB23f089d34213"
+    ],
+    "node_results": [
+        {
+            "node_id": "node1",
+            "signer": "0x4dd936022f07289A9CE238586E03cD9c5Fa9b130",
+            "risk_reasons": []
+        },
+        {
+            "node_id": "node2",
+            "signer": "0x536DEda6A3682C72DCD603A54C72A8C2751eD0fb",
+            "risk_reasons": []
+        },
+        {
+            "node_id": "node3",
+            "signer": "0x018dcD38b3cfe143c4002e89A5998C31e0EdB496",
+            "risk_reasons": []
+        },
+        {
+            "node_id": "node4",
+            "signer": "0x2272dfdFAdca3c7c42aDc5ABdEBB23f089d34213",
+            "risk_reasons": []
+        }
+    ],
+    "quorum": 3,
+    "collected": 4,
+    "node_errors": []
+}

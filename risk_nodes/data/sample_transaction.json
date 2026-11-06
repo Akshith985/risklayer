@@ -1,0 +1,9 @@
+{
+    "amount": 200,
+    "provider_capacity": 1000,
+    "provider_reversal_rate": 0.02,
+    "taker_dispute_rate": 0.01,
+    "account_age_days": 180,
+    "transactions_last_hour": 3,
+    "payment_method_risk": 0.10
+}
