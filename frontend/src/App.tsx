@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useState } from "react";
 import { BrowserProvider, Contract, formatUnits, parseUnits } from "ethers";
 import { AnimatePresence, motion } from "motion/react";
@@ -26,7 +25,10 @@ declare global {
   }
 }
 
-const API = "http://127.0.0.1:8000";
+const API = (
+  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000"
+).replace(/\/+$/, "");
+
 const CHAIN_ID = 84532;
 const CHAIN_ID_HEX = "0x14a34";
 const CHAIN_NAME = "Base Sepolia";

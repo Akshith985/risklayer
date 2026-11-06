@@ -26,6 +26,7 @@ load_dotenv(RISK_NODES_DIR / ".env")
 
 from nodes.aggregator import collect_assessments
 
+
 RPC_URL = os.getenv("RPC_URL", "http://127.0.0.1:8545")
 CHAIN_ID = int(os.getenv("CHAIN_ID", "31337"))
 
@@ -54,22 +55,40 @@ STATUS_NAMES = [
 
 app = FastAPI(
     title="RiskLayer API",
-    description="Local API for the RiskLayer protocol",
+    description="RiskLayer protocol API",
     version="1.0.0",
+)
+
+frontend_origins = [
+    origin.strip().rstrip("/")
+    for origin in os.getenv("FRONTEND_URLS", "").split(",")
+    if origin.strip()
+]
+
+single_frontend_url = os.getenv("FRONTEND_URL", "").strip().rstrip("/")
+
+if single_frontend_url:
+    frontend_origins.append(single_frontend_url)
+
+allowed_origins = list(
+    dict.fromkeys(
+        [
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            *frontend_origins,
+        ]
+    )
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-w3 = Web3(Web3.HTTPProvider(RPC_URL, request_kwargs={"timeout": 5}))
+w3 = Web3(Web3.HTTPProvider(RPC_URL, request_kwargs={"timeout": 10}))
 
 
 def load_contract(name: str):
@@ -102,7 +121,7 @@ def require_connection():
     if not w3.is_connected():
         raise HTTPException(
             status_code=503,
-            detail="Cannot connect to Anvil. Start your local blockchain.",
+            detail="Cannot connect to the configured blockchain RPC.",
         )
 
     if w3.eth.chain_id != CHAIN_ID:
@@ -366,6 +385,7 @@ def provider_details(address: str):
         ),
     }
 
+
 class RiskFeaturesRequest(BaseModel):
     provider_reversal_rate: float = Field(ge=0, le=1)
     taker_dispute_rate: float = Field(ge=0, le=1)
@@ -388,7 +408,6 @@ def assess_intent(intent_id: int, request: RiskFeaturesRequest):
     except Exception:
         raise HTTPException(status_code=404, detail="Intent not found")
 
-    # IntentStatus.Open == 1
     if int(intent[5]) != 1:
         raise HTTPException(
             status_code=409,
@@ -415,12 +434,9 @@ def assess_intent(intent_id: int, request: RiskFeaturesRequest):
             detail="Intent is expired or too close to expiry",
         )
 
-    # Use on-chain provider liquidity, not a client-supplied value.
     deposited = int(vault.functions.deposits(provider).call())
-
-    # The current intent is already reserved, so include its amount
-    # when estimating the provider's committed liquidity.
     reserved = int(vault.functions.reserved(provider).call())
+
     provider_capacity = max(deposited - reserved + amount, amount)
 
     nonce = int(oracle.functions.assessmentNonce(intent_id).call())
